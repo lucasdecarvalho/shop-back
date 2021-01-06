@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('caption')->nullable();
             $table->string('brand')->nullable();
-            $table->integer('storage_initial');
+            $table->integer('storage_initial')->nullable();
             $table->integer('storage_current')->nullable();
             $table->boolean('available')->default(true);
             $table->longText('description')->nullable();

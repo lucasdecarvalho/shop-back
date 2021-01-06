@@ -71,6 +71,11 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function showPub($id)
+    {
+        return Seller::findOrFail($id);
+    }
+    
     public function show()
     {
         // return Seller::findOrFail($id);

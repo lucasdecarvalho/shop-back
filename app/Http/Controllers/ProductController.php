@@ -38,11 +38,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'photo1' => 'image:jpeg,png,jpg,gif,svg|max:2048'
+            'photo1' => 'image:jpeg,png,jpg,gif,svg|max:2048',
+            'photo2' => 'image:jpeg,png,jpg,gif,svg|max:2048',
+            'photo3' => 'image:jpeg,png,jpg,gif,svg|max:2048'
          ]);
-         if ($validator->fails()) {
-            return false;
-         }
+        //  if ($validator->fails()) {
+        //     return false;
+        //  }
 
          if ($request->photo1) {
             $uploadFolder = 'products';
@@ -51,16 +53,39 @@ class ProductController extends Controller
         } else {
             $photo1_path = null;
         }
+
+         if ($request->photo2) {
+            $uploadFolder = 'products';
+            $image = $request->file('photo2');
+            $photo2_path = $image->store($uploadFolder, 'public');
+        } else {
+            $photo2_path = null;
+        }
+
+         if ($request->photo3) {
+            $uploadFolder = 'products';
+            $image = $request->file('photo3');
+            $photo3_path = $image->store($uploadFolder, 'public');
+        } else {
+            $photo3_path = null;
+        }
         
         $data = [
             'store' => $request->store,
-            'name' => $request->name,
-            'caption' => $request->caption,
             'brand' => $request->brand,
-            'storage_initial' => $request->storage_initial,
-            'available' => $request->available,
-            'price' => $request->price,
+            
             'photo1' => $photo1_path,
+            'photo2' => $photo2_path,
+            'photo3' => $photo3_path,
+
+            'name' => $request->name,
+            'storage_initial' => $request->storage_initial,
+            'caption' => $request->caption,
+            'description' => $request->description,
+            'details' => $request->details,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'video' => $request->video,
          ];
 
          return Product::create($data);
