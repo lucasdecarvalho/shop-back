@@ -20,16 +20,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -99,18 +89,20 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::where('store',$id)->orderByDesc('id')->get()->all();
+        // return Product::where('store',$store)->orderByDesc('id')->get()->all();
+        return Product::findOrFail($id);
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showProd($store)
     {
-        //
+        // return Product::findOrFail($id);
+        return Product::where('store',$store)->orderByDesc('id')->get()->all();
     }
 
     /**
@@ -122,7 +114,60 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'photo1' => 'image:jpeg,png,jpg,gif,svg|max:2048',
+            'photo2' => 'image:jpeg,png,jpg,gif,svg|max:2048',
+            'photo3' => 'image:jpeg,png,jpg,gif,svg|max:2048'
+         ]);
+        //  if ($validator->fails()) {
+        //     return false;
+        //  }
+
+         if ($request->photo1) {
+            $uploadFolder = 'products';
+            $image = $request->file('photo1');
+            $photo1_path = $image->store($uploadFolder, 'public');
+        } else {
+            $photo1_path = null;
+        }
+
+         if ($request->photo2) {
+            $uploadFolder = 'products';
+            $image = $request->file('photo2');
+            $photo2_path = $image->store($uploadFolder, 'public');
+        } else {
+            $photo2_path = null;
+        }
+
+         if ($request->photo3) {
+            $uploadFolder = 'products';
+            $image = $request->file('photo3');
+            $photo3_path = $image->store($uploadFolder, 'public');
+        } else {
+            $photo3_path = null;
+        }
+        
+        $data = [
+            'store' => $request->store,
+            'brand' => $request->brand,
+            
+            'photo1' => $photo1_path,
+            'photo2' => $photo2_path,
+            'photo3' => $photo3_path,
+
+            'name' => $request->name,
+            'storage_initial' => $request->storage_initial,
+            'caption' => $request->caption,
+            'description' => $request->description,
+            'details' => $request->details,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'video' => $request->video,
+         ];
+        //  dd($request->all());
+
+        $prod = Product::findOrFail($id);
+        $prod->update($data);
     }
 
     /**
