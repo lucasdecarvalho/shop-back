@@ -123,48 +123,50 @@ class ProductController extends Controller
         //     return false;
         //  }
 
+        $data = [];
+
          if ($request->photo1) {
             $uploadFolder = 'products';
             $image = $request->file('photo1');
             $photo1_path = $image->store($uploadFolder, 'public');
-        } else {
-            $photo1_path = null;
+
+            $data += [
+                'photo1' => $photo1_path,
+            ];
         }
 
          if ($request->photo2) {
             $uploadFolder = 'products';
             $image = $request->file('photo2');
             $photo2_path = $image->store($uploadFolder, 'public');
-        } else {
-            $photo2_path = null;
+
+            $data += [
+                'photo2' => $photo2_path,
+            ];
         }
 
          if ($request->photo3) {
             $uploadFolder = 'products';
             $image = $request->file('photo3');
             $photo3_path = $image->store($uploadFolder, 'public');
-        } else {
-            $photo3_path = null;
+
+            $data += [
+                'photo3' => $photo3_path,
+            ];
         }
         
-        $data = [
-            'store' => $request->store,
-            'brand' => $request->brand,
-            
-            'photo1' => $photo1_path,
-            'photo2' => $photo2_path,
-            'photo3' => $photo3_path,
-
-            'name' => $request->name,
-            'storage_initial' => $request->storage_initial,
-            'caption' => $request->caption,
-            'description' => $request->description,
-            'details' => $request->details,
-            'price' => $request->price,
-            'discount' => $request->discount,
-            'video' => $request->video,
-         ];
-        //  dd($request->all());
+            $data += [
+                'store' => $request->store,
+                'brand' => $request->brand,
+                'name' => $request->name,
+                // 'storage_initial' => $request->storage_initial,
+                'caption' => $request->caption,
+                'description' => $request->description,
+                'details' => $request->details,
+                'price' => $request->price,
+                // 'discount' => $request->discount,
+                'video' => $request->video,
+            ];
 
         $prod = Product::findOrFail($id);
         $prod->update($data);
