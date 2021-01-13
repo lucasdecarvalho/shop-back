@@ -32,6 +32,7 @@ class ProductController extends Controller
             'photo2' => 'image:jpeg,png,jpg,gif,svg|max:2048',
             'photo3' => 'image:jpeg,png,jpg,gif,svg|max:2048'
          ]);
+
         //  if ($validator->fails()) {
         //     return false;
         //  }
@@ -183,6 +184,13 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $prod = Product::find($id);
+        
+        $imgProd1 = $prod->photo1;
+        $imgProd2 = $prod->photo2;
+        $imgProd3 = $prod->photo3;
+
+        Storage::delete($imgProd1, $imgProd2, $imgProd3);
+        
         $prod->delete();
     }
 }
