@@ -119,6 +119,7 @@ class ProductController extends Controller
             'photo2' => 'image:jpeg,png,jpg,gif,svg|max:2048',
             'photo3' => 'image:jpeg,png,jpg,gif,svg|max:2048'
          ]);
+
         //  if ($validator->fails()) {
         //     return false;
         //  }
@@ -159,6 +160,7 @@ class ProductController extends Controller
                 'store' => $request->store,
                 'brand' => $request->brand,
                 'name' => $request->name,
+                'available' => $request->available,
                 // 'storage_initial' => $request->storage_initial,
                 'caption' => $request->caption,
                 'description' => $request->description,
