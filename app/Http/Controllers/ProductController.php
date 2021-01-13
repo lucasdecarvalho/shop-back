@@ -127,10 +127,16 @@ class ProductController extends Controller
 
         $data = [];
 
+        $sobrescrever = Product::where('id', $id)->first();
+
          if ($request->photo1) {
             $uploadFolder = 'products';
             $image = $request->file('photo1');
             $photo1_path = $image->store($uploadFolder, 'public');
+
+            if($sobrescrever->photo1) {
+                Storage::delete($sobrescrever->photo1);
+            }
 
             $data += [
                 'photo1' => $photo1_path,
@@ -142,6 +148,10 @@ class ProductController extends Controller
             $image = $request->file('photo2');
             $photo2_path = $image->store($uploadFolder, 'public');
 
+            if($sobrescrever->photo2) {
+                Storage::delete($sobrescrever->photo2);
+            }
+
             $data += [
                 'photo2' => $photo2_path,
             ];
@@ -151,6 +161,10 @@ class ProductController extends Controller
             $uploadFolder = 'products';
             $image = $request->file('photo3');
             $photo3_path = $image->store($uploadFolder, 'public');
+
+            if($sobrescrever->photo3) {
+                Storage::delete($sobrescrever->photo3);
+            }
 
             $data += [
                 'photo3' => $photo3_path,
