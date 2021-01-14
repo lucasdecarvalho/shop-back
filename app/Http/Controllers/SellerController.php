@@ -76,6 +76,12 @@ class SellerController extends Controller
         return Seller::findOrFail($id);
     }
     
+    public function showSellerByAlias($store)
+    {
+        return Seller::where('alias', $store)->first();
+    }
+    
+    
     public function show()
     {
         // return Seller::findOrFail($id);

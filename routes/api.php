@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/products', 'App\Http\Controllers\ProductController');
 Route::get('/product/{store}', 'App\Http\Controllers\ProductController@showProd');
 Route::get('/store/{id}', 'App\Http\Controllers\SellerController@showPub');
+Route::get('/company/{store}', 'App\Http\Controllers\SellerController@showSellerByAlias');
 
 Route::group(['prefix' => 'seller','middleware' => []],function ()
 {
