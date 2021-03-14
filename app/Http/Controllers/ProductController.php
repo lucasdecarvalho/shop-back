@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::inRandomOrder()->take(12)->get();
+        return Product::where('available', true)->inRandomOrder()->take(12)->get();
     }
 
     /**
