@@ -19,6 +19,7 @@ class CreateSellersTable extends Migration
             $table->string('nome')->nullable();
             $table->string('abertura')->nullable();
             $table->string('cnpj')->unique();
+            $table->string('logo')->nullable();
 
             $table->string('logradouro')->nullable();
             $table->string('numero')->nullable();

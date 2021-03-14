@@ -16,6 +16,7 @@ class Seller extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
+        'logo', 
         'fantasia', 
         'nome',
         'abertura',

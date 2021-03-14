@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Seller;
 use App\Models\SellerAccess;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 class SellerController extends Controller
 {
     /**
@@ -103,10 +106,60 @@ class SellerController extends Controller
      */
     public function update(Request $request)
     {
-        $seller = auth('sellers')->userOrFail();
-        $seller->update($request->all());
+        // $seller = auth('sellers')->userOrFail();
+        // $seller->update($request->all());
 
         // return response()->json(compact('seller'));
+
+        // $validator = Validator::make($request->all(), [
+        //     'logo' => 'image:jpeg,png,jpg,gif,svg|max:2048'
+        //  ]);
+
+         $data = [];
+
+         $sobrescrever = auth('sellers')->userOrFail();
+ 
+          if ($request->logo != $sobrescrever->logo) {
+             $uploadFolder = 'logos';
+             $image = $request->file('logo');
+             $logo_path = $image->store($uploadFolder, 'public');
+ 
+             if($sobrescrever->logo) {
+                 Storage::delete($sobrescrever->logo);
+             }
+ 
+             $data += [
+                 'logo' => $logo_path,
+                ];
+            }
+            
+            $data += [
+            'fantasia' => $request->fantasia,
+            'logradouro' => $request->logradouro,
+            'numero' => $request->numero,
+            'complemento' => $request->complemento,
+            'bairro' => $request->bairro,
+            'municipio' => $request->municipio,
+            'uf' => $request->uf,
+            'cep' => $request->cep,
+            'telefone' => $request->telefone,
+            'telefone2' => $request->telefone2,
+
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'cpf' => $request->cpf,
+            'cel' => $request->cel,
+            'bankName' => $request->bankName,
+            'bankType' => $request->bankType,
+            'bankAg' => $request->bankAg,
+            'bankAccount' => $request->bankAccount,
+        ];
+
+        // dd($data);
+
+        // $prod = auth('sellers')->id();
+        $seller = auth('sellers')->userOrFail();
+        $seller->update($data);
     }
 
     /**

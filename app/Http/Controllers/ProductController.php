@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Product;
 
 class ProductController extends Controller
 {
