@@ -4,7 +4,10 @@
 /storage/*.key
 /vendor
 .env
+.env_prod
+.env.example
 .env.backup
+.DS_Store
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
