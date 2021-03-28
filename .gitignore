@@ -5,7 +5,6 @@
 /vendor
 .env
 .env_prod
-.env.example
 .env.backup
 .DS_Store
 .phpunit.result.cache

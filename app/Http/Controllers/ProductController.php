@@ -105,6 +105,19 @@ class ProductController extends Controller
         // return Product::findOrFail($id);
         return Product::where('store',$store)->orderByDesc('id')->get()->all();
     }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $result = Product::where('name', 'like', '%' .$keyword. '%')->get();
+        return $result;
+    }
 
     /**
      * Update the specified resource in storage.
