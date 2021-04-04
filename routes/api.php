@@ -44,8 +44,9 @@ Route::group(['prefix' => 'seller','middleware' => ['assign.guard:sellers','jwt.
 // Users
 Route::group(['prefix' => 'user','middleware' => []],function ()
 {
+	Route::post('/create','App\Http\Controllers\UserController@store');
 	Route::post('/login', 'App\Http\Controllers\UserController@login');
-	Route::post('/create','App\Http\Controllers\UserController@store');	
+	Route::get('/data', 'App\Http\Controllers\UserController@show');
 });
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:sellers','jwt.auth']],function ()

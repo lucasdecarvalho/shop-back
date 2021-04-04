@@ -47,9 +47,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        // return Seller::findOrFail($id);
+        try {
+            $user = auth('users')->userOrFail();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            // do something
+        }
+
+        return response()->json(compact('user'));
     }
 
     /**
