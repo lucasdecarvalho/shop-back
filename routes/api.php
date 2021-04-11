@@ -26,6 +26,8 @@ Route::get('/product/{store}', 'App\Http\Controllers\ProductController@showProd'
 Route::get('/store/{id}', 'App\Http\Controllers\SellerController@showPub');
 Route::get('/company/{store}', 'App\Http\Controllers\SellerController@showSellerByAlias');
 
+Route::post('/payment', 'App\Http\Controllers\CieloController@payer');
+
 Route::group(['prefix' => 'seller','middleware' => []],function ()
 {
 	Route::post('/create', 'App\Http\Controllers\SellerController@store');
