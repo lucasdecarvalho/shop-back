@@ -49,6 +49,7 @@ Route::group(['prefix' => 'user','middleware' => []],function ()
 	Route::post('/create','App\Http\Controllers\UserController@store');
 	Route::post('/login', 'App\Http\Controllers\UserController@login');
 	Route::get('/data', 'App\Http\Controllers\UserController@show');
+	Route::put('/update', 'App\Http\Controllers\UserController@update');
 });
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:sellers','jwt.auth']],function ()
